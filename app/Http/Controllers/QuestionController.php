@@ -25,4 +25,10 @@ class QuestionController extends Controller
 
         return $arr;
     }
+
+    public function QuestionTwoEndpointOne(){
+        sleep(1);
+
+        return hash('sha256', uniqid());
+    }
 }
