@@ -28,7 +28,7 @@ class QuestionController extends Controller
     }
 
     public function QuestionTwoEndpointOne(){
-        // sleep(1);
+        sleep(1);
 
         return hash('sha256', uniqid());
     }
