@@ -36,16 +36,22 @@ class QuestionController extends Controller
     public function QuestionTwoEndpointTwo(){
         $getHash = $this->QuestionTwoEndpointOne();
         $lastChar = substr($getHash, -1);
-        $message = 'Do not pass! Last digit of the hash is not an odd number!';
         $statusCode = 422;
 
         if (is_numeric($lastChar)){
-            if ($lastChar % 2 == 1){
-                $message = 'Pass! Last digit of the hash is an odd number!';
+            $isOddNumber = ($lastChar % 2 == 1);
+
+            if ($isOddNumber) {
                 $statusCode = 200;
             }
+
+            $message = 'The last character of the hash is `' . $lastChar . '`. ';
+            $message .= 'This is ' . ($isOddNumber ? 'an odd' : 'an even') . ' number. ';
+            $message .= $isOddNumber ? 'Pass.' : 'Do not pass.';
+        } else {
+            $message = 'The last 1 character of the hash are `' . $lastChar .'`. This is an alphabet. Do not Pass.';
         }
 
-        return response()->json(['message' => $message, 'statusCode' => $statusCode]);
+        return response()->json(['message' => $message, 'statusCode' => $statusCode], $statusCode);
     }
 }
