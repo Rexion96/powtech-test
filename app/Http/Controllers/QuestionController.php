@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use App\Http\Requests\QuestionOneRequest;
 
 class QuestionController extends Controller
@@ -27,8 +28,24 @@ class QuestionController extends Controller
     }
 
     public function QuestionTwoEndpointOne(){
-        sleep(1);
+        // sleep(1);
 
         return hash('sha256', uniqid());
+    }
+
+    public function QuestionTwoEndpointTwo(){
+        $getHash = $this->QuestionTwoEndpointOne();
+        $lastChar = substr($getHash, -1);
+        $message = 'Do not pass! Last digit of the hash is not an odd number!';
+        $statusCode = 422;
+
+        if (is_numeric($lastChar)){
+            if ($lastChar % 2 == 1){
+                $message = 'Pass! Last digit of the hash is an odd number!';
+                $statusCode = 200;
+            }
+        }
+
+        return response()->json(['message' => $message, 'statusCode' => $statusCode]);
     }
 }

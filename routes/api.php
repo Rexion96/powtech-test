@@ -7,4 +7,5 @@ Route::group(['prefix' => 'questions'], function () {
     Route::get('/one',  [QuestionController::class, 'QuestionOne']);
 
     Route::get('/two-endpoint-one',  [QuestionController::class, 'QuestionTwoEndpointOne']);
+    Route::get('/two-endpoint-two',  [QuestionController::class, 'QuestionTwoEndpointTwo']);
 });
